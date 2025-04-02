@@ -4,13 +4,11 @@ import Carousel from "./Carousel";
 import { projects } from "@/lib/projects";
 import path from "path";
 
-interface ProjectPageProps {
-  params: {
-    project: string;
-  };
+interface ProjectImagesProps {
+  project: string;
 }
 
-async function ProjectImages({ project }: { project: string }) {
+async function ProjectImages({ project }: ProjectImagesProps) {
   try {
     const projectDir = path.join(process.cwd(), "public", "projects", project);
     const files = await fs.readdir(projectDir);
@@ -37,6 +35,12 @@ async function ProjectImages({ project }: { project: string }) {
     console.error("Error loading project images:", error);
     return <p className="text-red-500">Error loading project images</p>;
   }
+}
+
+interface ProjectPageProps {
+  params: Promise<{
+    project: string;
+  }>;
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
