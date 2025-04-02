@@ -10,9 +10,9 @@ import { LayoutsMap } from "@/types/types";
 import {} from "@/hooks/useEmblaCurrentIndex";
 
 interface CarouselProps {
-  images: string[];
   project: string;
   subtitle?: string;
+  images: string[];
 }
 
 const layouts: LayoutsMap = {
@@ -100,7 +100,9 @@ const layouts: LayoutsMap = {
   },
 };
 
-export default function Carousel({ images, project, subtitle }: CarouselProps) {
+export default function Carousel({ project, subtitle }: CarouselProps) {
+  const [images, setImages] = useState<string[]>([]);
+
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isGridView, setIsGridView] = useState(false);
@@ -150,6 +152,17 @@ export default function Carousel({ images, project, subtitle }: CarouselProps) {
   const activeLayout = layoutMap?.[breakpoint] ||
     layoutMap?.base || { rows: 3, cols: 3 };
   const spans = activeLayout.spans || {};
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      const res = await fetch("/api/list-blobs");
+      const blobs = await res.json();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      setImages(blobs.map((b: any) => b.pathname));
+    };
+
+    fetchImages();
+  }, []);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -245,7 +258,7 @@ export default function Carousel({ images, project, subtitle }: CarouselProps) {
         // Fullscreen single image
         <div className="fixed inset-0 z-[999] bg-black flex items-center justify-center">
           <ProjectImage
-            src={`/projects/${project}/${images[currentIndex]}`}
+            src={`https://<your-project>.vercel-storage.com/${images[currentIndex]}`}
             alt="Fullscreen"
             width={1920}
             height={1080}

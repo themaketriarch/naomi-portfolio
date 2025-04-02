@@ -1,4 +1,3 @@
-import { promises as fs } from "fs";
 import { Suspense } from "react";
 import Carousel from "./Carousel";
 import { projects } from "@/lib/projects";
@@ -12,8 +11,12 @@ interface ProjectPageProps {
 
 async function ProjectImages({ project }: { project: string }) {
   try {
-    const projectDir = path.join(process.cwd(), "public", "projects", project);
-    const files = await fs.readdir(projectDir);
+    const res = await fetch(
+      `${process.env.BLOB_READ_WRITE_TOKENL}/?prefix=projects/${project}/`
+    );
+    const files: string[] = await res.json();
+    console.log(files);
+
     const projectData = projects.find((p) => p.folder === project);
 
     const imageFiles = files.filter((file) =>
