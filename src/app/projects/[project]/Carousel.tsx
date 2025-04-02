@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ProjectControls } from "./ProjectControls";
 import { useBreakpoint, useEmblaCurrentIndex } from "@/hooks/index";
+import { projects } from "@/lib/projects";
 
 import ProjectImage from "./ProjectImage";
 import useEmblaCarousel from "embla-carousel-react";
@@ -227,6 +228,8 @@ export default function Carousel({ images, project, subtitle }: CarouselProps) {
     setIsGridView((prev) => !prev);
   };
 
+  const projectData = projects.find((p) => p.folder === project);
+
   return (
     <div className="embla h-full w-full">
       {/* Main carousel viewport */}
@@ -311,7 +314,7 @@ export default function Carousel({ images, project, subtitle }: CarouselProps) {
 
       <ProjectControls
         currentIndex={currentIndex ?? 0}
-        projectTitle={project}
+        projectTitle={projectData?.title || project}
         projectSubtitle={subtitle}
         images={images}
         onPrev={scrollPrev}
