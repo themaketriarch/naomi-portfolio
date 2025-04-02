@@ -10,9 +10,9 @@ import { LayoutsMap } from "@/types/types";
 import {} from "@/hooks/useEmblaCurrentIndex";
 
 interface CarouselProps {
+  images: string[];
   project: string;
   subtitle?: string;
-  images: string[];
 }
 
 const layouts: LayoutsMap = {
@@ -100,9 +100,7 @@ const layouts: LayoutsMap = {
   },
 };
 
-export default function Carousel({ project, subtitle }: CarouselProps) {
-  const [images, setImages] = useState<string[]>([]);
-
+export default function Carousel({ images, project, subtitle }: CarouselProps) {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isGridView, setIsGridView] = useState(false);
@@ -152,17 +150,6 @@ export default function Carousel({ project, subtitle }: CarouselProps) {
   const activeLayout = layoutMap?.[breakpoint] ||
     layoutMap?.base || { rows: 3, cols: 3 };
   const spans = activeLayout.spans || {};
-
-  useEffect(() => {
-    const fetchImages = async () => {
-      const res = await fetch("/api/list-blobs");
-      const blobs = await res.json();
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      setImages(blobs.map((b: any) => b.pathname));
-    };
-
-    fetchImages();
-  }, []);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -230,16 +217,6 @@ export default function Carousel({ project, subtitle }: CarouselProps) {
     setIsFullScreen((prev) => !prev);
   };
 
-  // const exitFullScreen = () => {
-  //   setIsFullScreen(false);
-
-  //   setTimeout(() => {
-  //     if (emblaApi && currentIndex != null) {
-  //       emblaApi.scrollTo(currentIndex, true); // jump instantly to the same index
-  //     }
-  //   }, 0);
-  // };
-
   const handleDotClick = (idx: number) => {
     scrollTo(idx);
     setIsFullScreen(false);
@@ -258,7 +235,7 @@ export default function Carousel({ project, subtitle }: CarouselProps) {
         // Fullscreen single image
         <div className="fixed inset-0 z-[999] bg-black flex items-center justify-center">
           <ProjectImage
-            src={`https://<your-project>.vercel-storage.com/${images[currentIndex]}`}
+            src={images[currentIndex]}
             alt="Fullscreen"
             width={1920}
             height={1080}
@@ -279,7 +256,7 @@ export default function Carousel({ project, subtitle }: CarouselProps) {
                 className="embla__slide w-full h-full flex-[0_0_100%] min-w-0 bg-black flex items-center justify-center"
               >
                 <ProjectImage
-                  src={`/projects/${project}/${file}`}
+                  src={images[currentIndex]}
                   alt={file}
                   width={1080}
                   height={1080}

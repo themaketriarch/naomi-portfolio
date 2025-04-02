@@ -10,7 +10,7 @@ export const projects = [
     folder: "InterruptingChicken",
     subtitle: "",
     image: "/Chicken-MainPoster.png",
-    title: "Interrupting/nChicken",
+    title: "Interrupting Chicken",
     year: "2019",
   },
   {

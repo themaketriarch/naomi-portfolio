@@ -1,3 +1,4 @@
+import { promises as fs } from "fs";
 import { Suspense } from "react";
 import Carousel from "./Carousel";
 import { projects } from "@/lib/projects";
@@ -11,17 +12,15 @@ interface ProjectPageProps {
 
 async function ProjectImages({ project }: { project: string }) {
   try {
-    const res = await fetch(
-      `${process.env.BLOB_READ_WRITE_TOKENL}/?prefix=projects/${project}/`
-    );
-    const files: string[] = await res.json();
-    console.log(files);
-
+    const projectDir = path.join(process.cwd(), "public", "projects", project);
+    const files = await fs.readdir(projectDir);
     const projectData = projects.find((p) => p.folder === project);
 
-    const imageFiles = files.filter((file) =>
-      [".jpg", ".jpeg", ".png"].includes(path.extname(file).toLowerCase())
-    );
+    const imageFiles = files
+      .filter((file) =>
+        [".jpg", ".jpeg", ".png"].includes(path.extname(file).toLowerCase())
+      )
+      .map((file) => `/projects/${project}/${file}`); // Map to public URL
 
     if (imageFiles.length === 0) {
       return <p className="text-gray-400">No images found for this project</p>;
