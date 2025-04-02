@@ -9,7 +9,7 @@ export const projects = [
   {
     folder: "InterruptingChicken",
     subtitle: "",
-    image: "/Chicken-MainPoster.png",
+    image: "/Chicken-Mainposter.png",
     title: "Interrupting Chicken",
     year: "2019",
   },
@@ -23,7 +23,7 @@ export const projects = [
   {
     folder: "TheGhostAndMcGee",
     subtitle: "",
-    image: "/Ghost-MainPoster.png",
+    image: "/Ghost-Mainposter.png",
     title: "The Ghost And McGee",
     year: "2019",
   },
