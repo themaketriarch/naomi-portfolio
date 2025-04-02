@@ -2,14 +2,14 @@ export const projects = [
   {
     folder: "HildaTheSeries",
     subtitle: "Season 3",
-    image: "/Hilda-Mainposter.jpg",
+    image: "/Hilda-MainPoster.jpg",
     title: "Hilda The Series",
     year: "2019",
   },
   {
     folder: "InterruptingChicken",
     subtitle: "",
-    image: "/Chicken-Mainposter.png",
+    image: "/Chicken-MainPoster.png",
     title: "Interrupting Chicken",
     year: "2019",
   },
@@ -23,7 +23,7 @@ export const projects = [
   {
     folder: "TheGhostAndMcGee",
     subtitle: "",
-    image: "/Ghost-Mainposter.png",
+    image: "/Ghost-MainPoster.png",
     title: "The Ghost And McGee",
     year: "2019",
   },
