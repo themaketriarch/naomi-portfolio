@@ -256,7 +256,7 @@ export default function Carousel({ images, project, subtitle }: CarouselProps) {
                 className="embla__slide w-full h-full flex-[0_0_100%] min-w-0 bg-black flex items-center justify-center"
               >
                 <ProjectImage
-                  src={images[currentIndex]}
+                  src={file}
                   alt={file}
                   width={1080}
                   height={1080}
@@ -294,7 +294,7 @@ export default function Carousel({ images, project, subtitle }: CarouselProps) {
                   className={`relative w-full h-full overflow-hidden cursor-pointer ${colSpan} ${rowSpan}`}
                 >
                   <ProjectImage
-                    src={`/projects/${project}/${file}`}
+                    src={file}
                     alt={`Thumbnail ${idx}`}
                     fill
                     width={1080}
