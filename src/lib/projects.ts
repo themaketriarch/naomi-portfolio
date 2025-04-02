@@ -31,7 +31,7 @@ export const projects = [
     folder: "TangledTheSeries",
     subtitle: "Season 3",
     image: "/Tangled-MainPoster.png",
-    title: "Tangle The Series",
+    title: "Tangled The Series",
     year: "2019",
   },
   // {
